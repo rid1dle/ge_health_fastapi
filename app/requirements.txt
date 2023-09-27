@@ -1,0 +1,10 @@
+transformers==4.33.2
+langchain==0.0.300
+sentence-transformers==2.2.2
+pymilvus==2.3.1
+torch>=2.0.0
+gunicorn==21.2.0
+auto-gptq==0.4.2
+uvicorn==0.23.2
+fastapi==0.103.1
+pypdf==3.16.2
