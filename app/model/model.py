@@ -1,5 +1,5 @@
 import sys
-import os
+import subprocess
 import time
 from pathlib import Path
 
@@ -193,7 +193,7 @@ class ChatBot:
 
     def model_shutdown(self):
         print("Model shutdown")
-        sys.exit(1)
+        subprocess.run("pkill -f gunicorn".split())
 
     def get_status_log(self):
         return self.status_log
