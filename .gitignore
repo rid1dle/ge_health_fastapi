@@ -3,3 +3,5 @@
 .pycache
 .vscode
 .conda
+.env
+volumes
