@@ -15,7 +15,7 @@ from langchain.embeddings import HuggingFaceBgeEmbeddings
 from langchain.chains import ConversationalRetrievalChain
 from langchain.llms import HuggingFacePipeline
 from langchain.memory import ConversationBufferWindowMemory
-from pymilvus import connections
+from pymilvus import connections, db
 from transformers import AutoTokenizer, TextStreamer, pipeline
 
 # Milvus connection
@@ -39,11 +39,15 @@ class ChatBot:
         self.status = "Not Ready"
         self.status_log = []
 
+    def check_db(self):
+        if MILVUS_DB_NAME not in db.list_database():
+            db.create_database(MILVUS_DB_NAME)
+        db.using_database(MILVUS_DB_NAME)
+
     def connect_to_milvus(self):
         try:
-            connections.connect(
-                host=MILVUS_HOST, port=MILVUS_PORT, db_name=MILVUS_DB_NAME
-            )
+            connections.connect(host=MILVUS_HOST, port=MILVUS_PORT)
+            self.check_db()
         except Exception as excp:
             self.status = "Milvus_connection_failed"
             sys.exit(1)

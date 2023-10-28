@@ -5,3 +5,4 @@
 .conda
 .env
 volumes
+__pycache__
